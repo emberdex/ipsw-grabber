@@ -15,5 +15,5 @@ Requires Python >= 3.8 for the `async` keyword.
 
 - [ ] OTA update support.
   - As it stands, this tool cannot download OTA updates for devices which support them (or for devices which Apple does not publish IPSWs for).
-- [ ] Code refactor.
-  - The structure of main.py isn't great, I wrote this tool in a bit of a hurry and it could do with refactoring.
+- [x] ~~Code refactor.~~
+  - ~~The structure of main.py isn't great, I wrote this tool in a bit of a hurry and it could do with refactoring.~~
