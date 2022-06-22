@@ -1,6 +1,8 @@
 import httpx
 import typing
 
+from tqdm import tqdm
+
 IPSW_ME_BASE_URL = "https://api.ipsw.me"
 IPSW_ME_GET_FIRMWARES_FOR_DEVICE = "/v4/device/$device"
 
@@ -25,3 +27,12 @@ async def get_ipsw_list(device_identifier: str, limit: int = 0) -> typing.List:
             return response.json()['firmwares'][0:limit]
         else:
             return response.json()['firmwares']
+
+
+async def download_file(output_filename: str, firmware_data: typing.Dict):
+    with httpx.stream("GET", firmware_data['url']) as response, open(output_filename, "wb") as output_file:
+        download_progress_bar = tqdm(total=firmware_data['filesize'], desc=f"Downloading {output_filename}", unit='iB',
+                                     unit_scale=True)
+        for data in response.iter_bytes():
+            download_progress_bar.update(len(data))
+            output_file.write(data)
