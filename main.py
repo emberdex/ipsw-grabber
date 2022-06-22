@@ -108,6 +108,8 @@ async def main():
         # If it matches, save the IPSW data
         grabber_config.save_device_firmware_info(device_identifier, output_filename, fetched_firmware_info['sha1sum'])
 
+        logger.info(f"Downloaded firmware version {firmware_version} for device {device_identifier} successfully.")
+
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())

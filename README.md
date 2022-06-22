@@ -17,3 +17,5 @@ Requires Python >= 3.8 for the `async` keyword.
   - As it stands, this tool cannot download OTA updates for devices which support them (or for devices which Apple does not publish IPSWs for).
 - [x] ~~Code refactor.~~
   - ~~The structure of main.py isn't great, I wrote this tool in a bit of a hurry and it could do with refactoring.~~
+- [ ] `pipx` support, and proper CLI argument parsing.
+  - This would make it easier for folks with less coding experience/those who can't create virtualenvs to use the script.
