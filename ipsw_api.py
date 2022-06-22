@@ -16,12 +16,12 @@ async def get_ipsw_list(device_identifier: str, limit: int = 0) -> typing.List:
                                                         "type": "ipsw"
                                                     })
 
-        if response.status_code is 404:
+        if response.status_code == 404:
             raise Exception(f"Invalid device identifier \"{device_identifier}\".")
-        elif response.status_code is not 200:
+        elif response.status_code != 200:
             raise Exception(f"Error fetching IPSWs for device \"{device_identifier}\".")
 
-        if limit is not 0:
+        if limit != 0:
             return response.json()['firmwares'][0:limit]
         else:
             return response.json()['firmwares']

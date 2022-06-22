@@ -12,6 +12,10 @@ from urllib.parse import urlparse
 HASH_BLOCK_SIZE = 1024 * 64
 
 
+def clear_progress_bar():
+    print('\r\033[K')
+
+
 async def main():
     for device_identifier in grabber_config.get_devices():
         logger.info(f"Getting latest available IPSW for device identifier {device_identifier}.")
@@ -60,6 +64,8 @@ async def main():
                 download_progress_bar.update(len(data))
                 output_file.write(data)
 
+            clear_progress_bar()
+
         # Verify the file against the SHA1 hash in the API response.
         verify_progress_bar = tqdm(total=ipsw_data['filesize'], desc=f"Verifying {output_filename}", unit='iB', unit_scale=True)
         file_hash = hashlib.sha1()
@@ -69,6 +75,8 @@ async def main():
                 file_hash.update(block)
                 verify_progress_bar.update(len(block))
                 block = output_file.read(HASH_BLOCK_SIZE)
+
+        clear_progress_bar()
 
         # If it doesn't match, delete it.
         if file_hash.hexdigest() != ipsw_data['sha1sum']:
