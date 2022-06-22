@@ -97,7 +97,7 @@ async def main():
         await ipsw_api.download_file(output_filename, fetched_firmware_info)
 
         # Verify the file against the SHA1 hash in the API response.
-        hash_matches = await verify_file_sha1(output_filename, fetched_firmware_info['sha1sum'])
+        hash_matches = await verify_file_sha1(output_filename, fetched_firmware_info)
 
         # If it doesn't match, delete it.
         if not hash_matches:
