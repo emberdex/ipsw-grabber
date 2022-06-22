@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 HASH_BLOCK_SIZE = 1024 * 64
 
 
-async def fetch_firmwares(device_identifier: str, limit: int) -> typing.Optional[typing.Dict]:
+async def fetch_firmwares(device_identifier: str) -> typing.Optional[typing.Dict]:
     firmware_data = await ipsw_api.get_ipsw_list(device_identifier, limit=1)
 
     try:
@@ -64,7 +64,7 @@ async def verify_file_sha1(output_filename: str, fetched_firmware_info: typing.D
 async def main():
     for device_identifier in grabber_config.get_devices():
         logger.info(f"Getting latest available IPSW for device identifier {device_identifier}.")
-        fetched_firmware_info = await fetch_firmwares(device_identifier, limit=1)
+        fetched_firmware_info = await fetch_firmwares(device_identifier)
 
         if fetched_firmware_info is None:
             logger.error(
