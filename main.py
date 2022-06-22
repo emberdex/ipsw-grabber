@@ -58,7 +58,7 @@ async def verify_file_sha1(output_filename: str, fetched_firmware_info: typing.D
             verify_progress_bar.update(len(block))
             block = output_file.read(HASH_BLOCK_SIZE)
 
-    return file_hash.hexdigest() == fetched_firmware_info['sha1']
+    return file_hash.hexdigest() == fetched_firmware_info['sha1sum']
 
 
 async def main():
